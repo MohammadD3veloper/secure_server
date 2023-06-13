@@ -9,12 +9,16 @@ function pkg {
     return $pkg
 }
 
+function change_port {
+    sed -i "s/#Port 22/Port $SSH_PORT" /etc/ssh/sshd_config
+}
+
 function set_firewall {
     if [ "$(command -v ufw)" == 0 ]; then 
         pkg install ufw 2&>1 /dev/null | echo -e "[!] Installing UFW Firewall"
-        ufw allow 80/tcp && ufw allow 443/tcp | echo -e "[!] Opening 80 and 443 ports"
+        ufw allow 80/tcp && ufw allow 443/tcp && ufw allow $SSH_PORT/tcp | echo -e "[!] Opening 80, 443, $SSH_PORT ports"
     else
-        ufw allow 80/tcp && ufw allow 443/tcp | echo -e "[!] Opening 80 and 443 ports"
+        ufw allow 80/tcp && ufw allow 443/tcp && ufw allow $SSH_PORT/tcp | echo -e "[!] Opening 80, 443, $SSH_PORT ports"
     fi
 }
 
@@ -46,6 +50,7 @@ function install_v2ray {
 
 
 set_firewall
+change_port
 install_package
 tls_domains
 create_and_change_user

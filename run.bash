@@ -12,21 +12,26 @@ function check_root {
 function main() {
     check_root
     read -p "Enter Username: " USER_NAME
-    read -p "Enter Password: " USER_PASS
+    echo -n "Enter Password: "
+    read -s USER_PASS
+    echo
     read -p "Enter SSH port: " SSH_PORT
-    read -a "Enter Domains: " DOMAINS
+    echo -n "Enter Domains: "
+    read -a DOMAINS
     read -p "Enter Username for panel: " PANEL_USER
-    read -p "Enter Password for panel: " PANEL_PASSWORD
+    echo -n "Enter Password for panel: "
+    read -s PANEL_PASSWORD
+    echo
     read -p "Enter Port for panel: " PANEL_PORT
     read -p "Enable MTProto Proxy? (y,n)" MTPROTO_Y_N
     if [ "$1" == "v2ray" ]; then 
-        source modules/v2ray.bash
+        source modules/v2ray.sh
         if [ "$MTPROTO_Y_N" == "y" ]; then
-            source modules/mtproto.sh
+            bash modules/mtproto.sh
         fi
     elif [ "$1" == "dev" ]; then
-        source modules/dev.bash
+        bash modules/dev.sh
     fi
 }
 
-main
+main $1
