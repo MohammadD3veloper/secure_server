@@ -43,3 +43,10 @@ function install_v2ray {
     echo 'y' | echo $PANEL_USER | echo $PANEL_PASSWORD | echo $PANEL_PORT | sudo ./install.sh | echo -e "[!] Installing and configuring 3XUI"
     rm install.sh
 }
+
+
+set_firewall
+install_package
+tls_domains
+create_and_change_user
+install_v2ray

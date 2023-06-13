@@ -27,3 +27,7 @@ function start_systemd {
     systemctl enable mtprotoproxy
     systemctl start mtprotoproxy
 }
+
+mtproto_git
+add_systemd_service
+start_systemd

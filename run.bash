@@ -28,3 +28,5 @@ function main() {
         source modules/dev.bash
     fi
 }
+
+main
