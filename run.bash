@@ -31,7 +31,6 @@ function main() {
             elif [ -f "/etc/debian_version" ]; then
                 pkg=apt-get
             fi
-            return $pkg
         }
 
         function change_port {
@@ -40,7 +39,7 @@ function main() {
 
         function set_firewall {
             if [ "$(command -v ufw)" == 0 ]; then 
-                pkg install ufw 2>&1 /dev/null | echo -e "[!] Installing UFW Firewall"
+                $pkg install ufw 2>&1 /dev/null | echo -e "[!] Installing UFW Firewall"
                 ufw allow 80/tcp && ufw allow 443/tcp && ufw allow $SSH_PORT/tcp | echo -e "[!] Opening 80, 443, $SSH_PORT ports"
             else
                 ufw allow 80/tcp && ufw allow 443/tcp && ufw allow $SSH_PORT/tcp | echo -e "[!] Opening 80, 443, $SSH_PORT ports"
@@ -48,8 +47,8 @@ function main() {
         }
 
         function install_package {
-            pkg update && pkg upgrade -y 2>&1 /dev/null | echo -e "[+] Updating Package Manager"
-            pkg install docker docker-compose certbot curl wget -y 2>&1 /dev/null | echo -e "[+] Installing needed tools"
+            $pkg update && $pkg upgrade -y 2>&1 /dev/null | echo -e "[+] Updating Package Manager"
+            $pkg install docker docker-compose certbot curl wget -y 2>&1 /dev/null | echo -e "[+] Installing needed tools"
         }
 
         function tls_domains {
