@@ -41,4 +41,5 @@ function install_v2ray {
     curl -O https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh 2&>1 /dev/null | echo -e "[+] Downloading 3XUI installation script"
     chmod +x install.sh | echo -e "[!] Accessing to script"
     echo 'y' | echo $PANEL_USER | echo $PANEL_PASSWORD | echo $PANEL_PORT | sudo ./install.sh | echo -e "[!] Installing and configuring 3XUI"
+    rm install.sh
 }
